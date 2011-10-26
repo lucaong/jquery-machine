@@ -1,5 +1,5 @@
-jQuery-Machine, state machines the easy way
-===========================================
+jQuery-Machine, finite state machines that rock
+===============================================
 
 The jQuery plugin `jquery-machine` implements a simple and clean API to bind elements to finite state machines. You can use it to build awesome multy-state UI elements and widgets.
 
@@ -10,7 +10,7 @@ Usage
 ```javascript
 $("#myelement").machine({
   stateOne: {
-    default: true, // stateOne is the default state
+    default: true, // stateOne is the default state. Alternatively, just call the default state "start"
     onEnter: function() {
       // Do something when entering stateOne. Here 'this' is $("#myelement")
     },
@@ -19,7 +19,8 @@ $("#myelement").machine({
     },
     exits: {
       // Here you define the possible exits from stateOne
-      click: "stateTwo" // When in stateOne and event 'click' is triggered, state transitions to stateTwo
+      click: "stateTwo", // When in stateOne and event 'click' is triggered, state transitions to stateTwo
+      dblclick: "stateThree" // When in stateOne and event 'dblclick' is triggered, state transitions to stateThree
     }
   },
   stateTwo: {
