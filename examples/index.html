@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery-Machine Demo</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="../jquery-machine/jquery-machine.0.0.1.js"></script>
+    <style type="text/css">
+      html {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      body {
+        padding: 0 20px;
+      }
+      #statelog {
+        font-family: "Courier new", Courier, monospace;
+        color: #555;
+        background: #ffe;
+        list-style: none;
+        width: 500px;
+        padding: 1em;
+        border: 1px solid #ccc;
+      }
+      #statelog h3 {
+        margin: 0 0 1em 0;
+      }
+      button {
+        font-size: 20px;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // Define the state machine:
+        $("#mybutton").machine({
+          start: {
+            onEnter: function() {
+              this.html("Click me!");
+              $("#statelog").append("<li>I'm in state &quot;start&quot;</li>");
+            },
+            onExit: function() {
+              $("#statelog").append("<li>I'm exiting state &quot;start&quot;</li>");
+            },
+            exits: {
+              click: "state2"
+            }
+          },
+          state2: {
+            onEnter: function() {
+              this.html("Ok, now click me again. Or just wait 5 seconds to get back...");
+              timeout = setTimeout(function() { $("#mybutton").trigger("timeout") }, 5000);
+              $("#statelog").append("<li>I'm in state &quot;state2&quot;</li>");
+            },
+            onExit: function() {
+              $("#statelog").append("<li>I'm exiting state &quot;state2&quot;</li>");
+              clearTimeout(timeout);
+            },
+            exits: {
+              click: "state3",
+              timeout: "start"
+            }
+          },
+          state3: {
+            onEnter: function() {
+              this.html("Click to start over.");
+              $("#statelog").append("<li>I'm in state &quot;state3&quot;</li>");
+            },
+            onExit: function() {
+              $("#statelog").append("<li>I'm exiting state &quot;state3&quot;</li>");
+            },
+            exits: {
+              click: "start"
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>jQuery-Machine Demo</h1>
+    <h3>Click on the button and watch it transition to different states:</h3>
+    <button id="mybutton">Click me!</button>
+    <ul id="statelog">
+      <h3>State Log:</h3>
+    </ul>
+  </body>
+</html>
