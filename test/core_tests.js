@@ -3,7 +3,7 @@ $(document).ready(function() {
     // Given this state machine:
     $("#test").machine({
       one: {
-        default: true,
+        defaultState: true,
         onEnter: function() {
           this.data("lastEntered", "one");
         },
