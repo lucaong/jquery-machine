@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery-Machine Demo: on-off</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="../jquery-machine/jquery-machine.0.1.0.js"></script>
+    <style type="text/css">
+      html {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      body {
+        padding: 0 20px;
+      }
+      button {
+        font-size: 20px;
+        border: 1px solid #333;
+        width: 70px;
+        text-shadow: 0 -1px 0 #333;
+        border-radius: 5px;
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+      }
+      button.on {
+        color: #dfd;
+        background: #00aa00;
+        background: -moz-linear-gradient(top, rgba(0,153,0,1) 0%, rgba(0,119,0,1) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,153,0,1)), color-stop(100%,rgba(0,119,0,1)));
+        background: -webkit-linear-gradient(top, rgba(0,153,0,1) 0%,rgba(0,119,0,1) 100%);
+        background: -o-linear-gradient(top, rgba(0,153,0,1) 0%,rgba(0,119,0,1) 100%);
+        background: -ms-linear-gradient(top, rgba(0,153,0,1) 0%,rgba(0,119,0,1) 100%);
+        background: linear-gradient(top, rgba(0,153,0,1) 0%,rgba(0,119,0,1) 100%);
+      }
+      button.off {
+        color: #fdd;
+        background: #CC0000;
+        background: -moz-linear-gradient(top, rgba(204,0,0,1) 0%, rgba(153,0,0,1) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(204,0,0,1)), color-stop(100%,rgba(153,0,0,1)));
+        background: -webkit-linear-gradient(top, rgba(204,0,0,1) 0%,rgba(153,0,0,1) 100%);
+        background: -o-linear-gradient(top, rgba(204,0,0,1) 0%,rgba(153,0,0,1) 100%);
+        background: -ms-linear-gradient(top, rgba(204,0,0,1) 0%,rgba(153,0,0,1) 100%);
+        background: linear-gradient(top, rgba(204,0,0,1) 0%,rgba(153,0,0,1) 100%);
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // Define the state machine:
+        $("#onoff_button").machine({
+          off: {
+            onEnter: function() {
+              this.html("off").removeClass("on off").addClass("off").val("off");
+            },
+            exits: {
+              click: "on"
+            }
+          },
+          on: {
+            defaultState: true,
+            onEnter: function() {
+              this.html("on").removeClass("on off").addClass("on").val("on");
+            },
+            exits: {
+              click: "off"
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>jQuery-Machine Demo</h1>
+    <h3>On-Off Button:</h3>
+    <button id="onoff_button" name="onoff"></button>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 /*!
  * jquery-machine Plugin for jQuery
  *
- * Version 0.0.1
+ * Version 0.1.0
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
@@ -10,11 +10,18 @@
  
 (function( $ ){
   "use strict";
-  $.fn.machine = function(machine) {
+  $.fn.machine = function(machine, options) {
+    // merge options with default
+    options = $.extend({ scope: false }, options);
+
+    // variables
     var $this = this,
         events = [],
         states = [],
         defaultState = "start",
+        scopePrefix = !!options.scope ? (options.scope + "-") : "",
+        stateKey = scopePrefix + "state",
+        machineKey = scopePrefix + "machine",
         callMethodIfExisting = function(obj, method) {
           if(!!obj && typeof obj[method] === "function") {
             return obj[method].apply($this, Array.prototype.slice.call( arguments, 2));
@@ -39,23 +46,23 @@
     events = $.unique(events);
 
     // Store state machine object
-    $(this).data("machine", machine);
+    $(this).data(machineKey, machine);
 
     // Enter default state
-    callMethodIfExisting($(this).data("machine")[defaultState], "onEnter");
-    $(this).data("state", defaultState);
+    $(this).data(stateKey, defaultState);
+    callMethodIfExisting($(this).data(machineKey)[defaultState], "onEnter");
 
     // Event handler
     $this.bind(events.join(" "), function(evt) {
-      var machine = $(this).data("machine"),
-          currentState = $(this).data("state"),
+      var machine = $(this).data(machineKey),
+          currentState = $(this).data(stateKey),
           nextState = (typeof machine[currentState].exits[evt.type] === "function") ?
             machine[currentState].exits[evt.type].apply($this, arguments) :
             machine[currentState].exits[evt.type];
       if (!!nextState) {
         callMethodIfExisting(machine[currentState], "onExit", evt);
+        $(this).data(stateKey, nextState);
         callMethodIfExisting(machine[nextState], "onEnter", evt);
-        $(this).data("state", nextState);
       }
     });
 
