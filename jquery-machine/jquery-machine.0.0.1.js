@@ -9,26 +9,31 @@
  */ 
  
 (function( $ ){
+  "use strict";
   $.fn.machine = function(machine) {
     var $this = this,
         events = [],
         states = [],
         defaultState = "start",
         callMethodIfExisting = function(obj, method) {
-          if(!!obj && typeof obj[method] == "function") {
-            return obj[method].apply($this, Array.prototype.slice.call( arguments, 2))
+          if(!!obj && typeof obj[method] === "function") {
+            return obj[method].apply($this, Array.prototype.slice.call( arguments, 2));
           }
         };
 
     // populate states and event array, get default state
-    for(var state in machine) if (machine.hasOwnProperty(state)) {
-      states.push(state);
-      if(!!machine[state].default) {
-        defaultState = state;
-      }
-      machine[state].exits = machine[state].exits || {};
-      for(var evt in machine[state].exits) if (machine[state].exits.hasOwnProperty(evt)) {
-        events.push(evt);
+    for(var state in machine) {
+      if (machine.hasOwnProperty(state)) {
+        states.push(state);
+        if(!!machine[state].defaultState) {
+          defaultState = state;
+        }
+        machine[state].exits = machine[state].exits || {};
+        for(var evt in machine[state].exits) {
+          if (machine[state].exits.hasOwnProperty(evt)) {
+            events.push(evt);
+          }
+        }
       }
     }
     events = $.unique(events);
@@ -44,7 +49,7 @@
     $this.bind(events.join(" "), function(evt) {
       var machine = $(this).data("machine"),
           currentState = $(this).data("state"),
-          nextState = machine[currentState]["exits"][evt.type];
+          nextState = machine[currentState].exits[evt.type];
       if (!!nextState) {
         callMethodIfExisting(machine[currentState], "onExit", evt);
         callMethodIfExisting(machine[nextState], "onEnter", evt);
