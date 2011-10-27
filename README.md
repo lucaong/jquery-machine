@@ -52,4 +52,4 @@ You can read the state of an element in any moment with `$("#myelement").data("s
 Setting the state
 -----------------
 
-Let the events trigger the state transitions as you specified: you shouldn't use `$("#myelement").data("state", "myForcedState")` to set the state, because that puts the state machine out of sync. When needed, you can always trigger events programmatically via the jQuery function `.trigger()`.
+Let the events trigger automatically the state transitions as you specified: you shouldn't use `$("#myelement").data("state", "myForcedState")` to force the state, because that puts the state machine out of sync (`onExit` and `onEnter` don't get called). When needed, you can always trigger events programmatically via the jQuery function `.trigger()`.
