@@ -50,7 +50,7 @@
       var machine = $(this).data("machine"),
           currentState = $(this).data("state"),
           nextState = (typeof machine[currentState].exits[evt.type] === "function") ?
-            machine[currentState].exits[evt.type](evt) :
+            machine[currentState].exits[evt.type].apply($this, arguments) :
             machine[currentState].exits[evt.type];
       if (!!nextState) {
         callMethodIfExisting(machine[currentState], "onExit", evt);
