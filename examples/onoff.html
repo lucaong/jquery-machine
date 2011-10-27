@@ -49,7 +49,10 @@
         $("#onoff_button").machine({
           off: {
             onEnter: function() {
-              this.html("off").removeClass("on off").addClass("off").val("off");
+              this.html("off").addClass("off").val("off");
+            },
+            onExit: function() {
+              this.removeClass("off");
             },
             exits: {
               click: "on"
@@ -58,7 +61,10 @@
           on: {
             defaultState: true,
             onEnter: function() {
-              this.html("on").removeClass("on off").addClass("on").val("on");
+              this.html("on").addClass("on").val("on");
+            },
+            onExit: function() {
+              this.removeClass("on");
             },
             exits: {
               click: "off"
