@@ -49,7 +49,9 @@
     $this.bind(events.join(" "), function(evt) {
       var machine = $(this).data("machine"),
           currentState = $(this).data("state"),
-          nextState = machine[currentState].exits[evt.type];
+          nextState = (typeof machine[currentState].exits[evt.type] === "function") ?
+            machine[currentState].exits[evt.type](evt) :
+            machine[currentState].exits[evt.type];
       if (!!nextState) {
         callMethodIfExisting(machine[currentState], "onExit", evt);
         callMethodIfExisting(machine[nextState], "onEnter", evt);
