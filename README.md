@@ -35,7 +35,15 @@ $("#myelement").machine({
     exits: {
       // Here you define the possible exits from stateTwo
       click: "stateThree", // When in stateTwo and event 'click' is triggered, state transitions to stateThree
-      customevent: "stateOne" // When in stateTwo and event 'customevent' is triggered, go back to stateOne
+      customevent: "stateOne", // When in stateTwo and event 'customevent' is triggered, go back to stateOne
+      keypress: function(evt) { // You can use a function to discriminate exit on the base of event attributes
+        var keyCode = evt.keyCode || evt.which;
+        if(keyCode == 13) {
+          return "stateOne"; // If event keyCode is 13 (return key) then go to stateOne
+        } else {
+          return false; // Else stay in the same state
+        }
+      }
     }
   },
   stateThree: {
