@@ -43,4 +43,13 @@ $("#myelement").machine({
   }
 });
 ```
-You can read the state of an element in any moment with `$("#myelement").data("state")`. You shouldn't use `.data()` to set the value of state, because that puts the state machine out of sync.
+
+Getting the state
+-----------------
+
+You can read the state of an element in any moment with `$("#myelement").data("state")`.
+
+Setting the state
+-----------------
+
+Let the events trigger the state transitions as you specified: you shouldn't use `$("#myelement").data("state", "myForcedState")` to set the state, because that puts the state machine out of sync. When needed, you can always trigger events programmatically via the jQuery function `.trigger()`.
