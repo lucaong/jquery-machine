@@ -11,10 +11,10 @@
 (function( $ ){
   "use strict";
   $.fn.machine = function(machine, options) {
-    // merge options with default
+    // Merge options with default
     options = $.extend({ scope: false }, options);
 
-    // variables
+    // Variables
     var $this = this,
         events = [],
         states = [],
@@ -28,7 +28,7 @@
           }
         };
 
-    // populate states and event array, get default state
+    // Populate states and events array, get default state
     for(var state in machine) {
       if (machine.hasOwnProperty(state)) {
         states.push(state);
@@ -48,7 +48,7 @@
     // Store state machine object
     $(this).data(machineKey, machine);
 
-    // Enter default state
+    // Set default state
     $(this).data(stateKey, defaultState);
     callMethodIfExisting($(this).data(machineKey)[defaultState], "onEnter");
 
@@ -66,6 +66,7 @@
       }
     });
 
+    // Maintain chainability
     return $this;
   };
 
