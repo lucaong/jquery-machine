@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>jQuery-Machine Demo: on-off</title>
+    <title>jQuery-Machine Demo: on-off buttons</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="../jquery-machine/jquery-machine.0.1.0.js"></script>
     <style type="text/css">
@@ -12,15 +12,12 @@
         padding: 0 20px;
       }
       button {
+        margin: 0 2px;
         font-size: 20px;
         border: 1px solid #333;
         width: 70px;
         text-shadow: 0 -1px 0 #333;
         border-radius: 5px;
-        -webkit-transition: all 200ms ease;
-        -moz-transition: all 200ms ease;
-        -o-transition: all 200ms ease;
-        transition: all 200ms ease;
       }
       button.on {
         color: #dfd;
@@ -46,37 +43,43 @@
     <script type="text/javascript">
       $(document).ready(function() {
         // Define the state machine:
-        $("#onoff_button").machine({
-          off: {
-            onEnter: function() {
-              this.html("off").addClass("off").val("off");
+        $(".onoff").each( function() {
+          $(this).machine({
+            off: {
+              onEnter: function() {
+                this.html("off").addClass("off").val("off");
+              },
+              onExit: function() {
+                this.removeClass("off");
+              },
+              exits: {
+                click: "on"
+              }
             },
-            onExit: function() {
-              this.removeClass("off");
-            },
-            exits: {
-              click: "on"
+            on: {
+              defaultState: true,
+              onEnter: function() {
+                this.html("on").addClass("on").val("on");
+              },
+              onExit: function() {
+                this.removeClass("on");
+              },
+              exits: {
+                click: "off"
+              }
             }
-          },
-          on: {
-            defaultState: true,
-            onEnter: function() {
-              this.html("on").addClass("on").val("on");
-            },
-            onExit: function() {
-              this.removeClass("on");
-            },
-            exits: {
-              click: "off"
-            }
-          }
+          });
         });
       });
     </script>
   </head>
   <body>
     <h1>jQuery-Machine Demo</h1>
-    <h3>On-Off Button:</h3>
-    <button id="onoff_button" name="onoff"></button>
+    <h3>On-Off Buttons:</h3>
+    <button class="onoff" name="onoff_button1"></button>
+    <button class="onoff" name="onoff_button2"></button>
+    <button class="onoff" name="onoff_button3"></button>
+    <button class="onoff" name="onoff_button4"></button>
+    <button class="onoff" name="onoff_button5"></button>
   </body>
 </html>
