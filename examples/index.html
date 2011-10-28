@@ -33,7 +33,7 @@
       $(document).ready(function() {
         // Define the state machine:
         $("#mybutton").machine({
-          start: {
+          defaultState: {
             onEnter: function() {
               this.html("Click me!");
               $("#statelog").append("<li>I'm in state &quot;start&quot;</li>");

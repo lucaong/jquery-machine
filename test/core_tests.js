@@ -83,14 +83,14 @@ $(document).ready(function() {
   test("scoped state machines", function() {
     // Given this state machine:
     $("#test").machine({
-      start: {
+      defaultState: {
         exits: {
           click: "two"
         }
       },
       two: {
         exits: {
-          click: "start"
+          click: "defaultState"
         }
       }
     }, { scope: "myScope" });
@@ -110,7 +110,7 @@ $(document).ready(function() {
       }
     }, { scope: "myOtherScope" });
     
-    equal($("#test").data("myScope-state"), "start", "State with scope 'myScope' should be initially set to default value of 'start'");
+    equal($("#test").data("myScope-state"), "defaultState", "State with scope 'myScope' should be initially set to default value of 'defaultState'");
     equal($("#test").data("myOtherScope-state"), "abc", "State with scope 'myOtherScope' should co-exist and be initially set to default value of 'abc'");
     
     $("#test").trigger("click");
@@ -121,7 +121,7 @@ $(document).ready(function() {
     equal($("#test").data("myOtherScope-state"), "def", "When myOtherScope-state is 'abc' and mouseover is triggered, state should transition to 'def'");
     
     $("#test").trigger("click");
-    equal($("#test").data("myScope-state"), "start", "When myScope-state is 'two' and click is triggered, state should transition to 'start'");
+    equal($("#test").data("myScope-state"), "defaultState", "When myScope-state is 'two' and click is triggered, state should transition to 'defaultState'");
     equal($("#test").data("myOtherScope-state"), "abc", "myOtherScope-state should transition to 'abc' when in 'def' and click is triggered");
     
   });

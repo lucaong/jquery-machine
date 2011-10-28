@@ -10,7 +10,7 @@ Usage
 ```javascript
 $("#myelement").machine({
   stateOne: {
-    defaultState: true, // stateOne is the default state. Alternatively, just call the default state "start"
+    defaultState: true, // stateOne is the default state. Alternatively, just call the default state "defaultState"
     onEnter: function() {
       // Do something when entering stateOne. Here 'this' is $("#myelement")
     },

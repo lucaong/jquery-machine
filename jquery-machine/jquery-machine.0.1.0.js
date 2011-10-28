@@ -18,7 +18,7 @@
     var $this = this,
         events = [],
         states = [],
-        defaultState = "start",
+        defaultState = "defaultState",
         scopePrefix = !!options.scope ? (options.scope + "-") : "",
         stateKey = scopePrefix + "state",
         machineKey = scopePrefix + "machine",
