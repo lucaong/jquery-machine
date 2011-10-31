@@ -47,10 +47,7 @@
           $(this).machine({
             off: {
               onEnter: function() {
-                this.html("off").addClass("off").val("off");
-              },
-              onExit: function() {
-                this.removeClass("off");
+                this.html("off").val("off");
               },
               exits: {
                 click: "on"
@@ -59,16 +56,13 @@
             on: {
               defaultState: true,
               onEnter: function() {
-                this.html("on").addClass("on").val("on");
-              },
-              onExit: function() {
-                this.removeClass("on");
+                this.html("on").val("on");
               },
               exits: {
                 click: "off"
               }
             }
-          });
+          }, {setClass: true});
         });
       });
     </script>
