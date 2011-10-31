@@ -125,4 +125,47 @@ $(document).ready(function() {
     equal($("#test").data("myOtherScope-state"), "abc", "myOtherScope-state should transition to 'abc' when in 'def' and click is triggered");
     
   });
+  
+  test("setClass option", function() {
+    // Given this state machine, where setClass option is set to true:
+    $("#test2").machine({
+      defaultState: {
+        exits: {
+          click: "two"
+        }
+      },
+      two: {
+        exits: {
+          click: "defaultState"
+        }
+      }
+    }, { setClass: true });
+    
+    ok($("#test2").hasClass("defaultState"), "When state is initially set to default value, a corresponding class should be set.");
+    
+    $("#test2").trigger("click");
+    ok($("#test2").hasClass("two"), "When state transitions to 'two', a corresponding class should be set.");
+    ok(!$("#test2").hasClass("defaultState"), "When state transitions, the class corresponding to the previous state should be removed.");
+    
+    // And given this state machine, where setClass option is set to true and a scope is used:
+    $("#test2").machine({
+      defaultState: {
+        exits: {
+          mouseover: "two"
+        }
+      },
+      two: {
+        exits: {
+          mouseover: "defaultState"
+        }
+      }
+    }, { setClass: true, scope: "myScope" });
+    
+    ok($("#test2").hasClass("myScope-defaultState"), "When state is initially set to default value, a corresponding scoped class should be set.");
+    
+    $("#test2").trigger("mouseover");
+    ok($("#test2").hasClass("myScope-two"), "When state transitions to 'two', a corresponding scoped class should be set.");
+    ok(!$("#test2").hasClass("myScope-defaultState"), "When state transitions, the scoped class corresponding to the previous state should be removed.");
+    
+  });
 });

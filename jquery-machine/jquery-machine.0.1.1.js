@@ -1,7 +1,7 @@
 /*!
  * jquery-machine Plugin for jQuery
  *
- * Version 0.1.0
+ * Version 0.1.1
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
@@ -12,7 +12,7 @@
   "use strict";
   $.fn.machine = function(machine, options) {
     // Merge options with default
-    options = $.extend({ scope: false }, options);
+    options = $.extend({ scope: false, setClass: false }, options);
 
     // Variables
     var $this = this,
@@ -50,6 +50,9 @@
 
     // Set default state
     $(this).data(stateKey, defaultState);
+    if (!!options.setClass) {
+      $(this).addClass(scopePrefix+defaultState);
+    }
     callMethodIfExisting($(this).data(machineKey)[defaultState], "onEnter");
 
     // Event handler
@@ -61,7 +64,13 @@
             machine[currentState].exits[evt.type];
       if (!!nextState) {
         callMethodIfExisting(machine[currentState], "onExit", evt);
+        if (!!options.setClass) {
+          $(this).removeClass(scopePrefix+currentState);
+        }
         $(this).data(stateKey, nextState);
+        if (!!options.setClass) {
+          $(this).addClass(scopePrefix+nextState);
+        }
         callMethodIfExisting(machine[nextState], "onEnter", evt);
       }
     });
