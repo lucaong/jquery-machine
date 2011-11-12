@@ -168,4 +168,28 @@ $(document).ready(function() {
     ok(!$("#test2").hasClass("myScope-defaultState"), "When state transitions, the scoped class corresponding to the previous state should be removed.");
     
   });
+  
+  test("Option defaultState", function() {
+    // Given this state machine, where default state is overridden by option defaultState
+    $("#test3").machine({
+      defaultState: {},
+      stateTwo: {}
+    }, { setClass: true, defaultState: "stateTwo" });
+    
+    equal($("#test3").data("state"), "stateTwo", "Option defaultState should override default state as defined in the machine object");
+  });
+  
+  test("Option defaultState with function evaluation", function() {
+    // Given this state machine, where defaultClass is overridden by option defaultState using a function
+    $("#test3").machine({
+      stateOne: { defaultState: true },
+      stateTwo: {}
+    }, { scope: "myscope", setClass: true, defaultState: function() {
+      if (this.attr("id") === "test3") {
+        return "stateTwo";
+      }
+    }});
+    
+    equal($("#test3").data("myscope-state"), "stateTwo", "Option defaultState should override default state as defined in the machine object");
+  });
 });

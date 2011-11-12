@@ -12,7 +12,7 @@
   "use strict";
   $.fn.machine = function(machine, options) {
     // Merge options with default
-    options = $.extend({ scope: false, setClass: false }, options);
+    options = $.extend({ scope: false, setClass: false, defaultState: false }, options);
 
     // Variables
     var $this = this,
@@ -44,6 +44,14 @@
       }
     }
     events = $.unique(events);
+    // Override default state if defaultState option is set
+    if (!!options.defaultState) {
+      if (typeof options.defaultState === "function") {
+        defaultState = options.defaultState.apply($this) || defaultState;
+      } else {
+        defaultState = options.defaultState;
+      }
+    }
 
     // Store state machine object
     $(this).data(machineKey, machine);
