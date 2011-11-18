@@ -9,7 +9,7 @@ Motivation
 
 As Web Developers, we tend to structure web apps in pages. The Web started as hypertext content, so we have web *pages*, HTML *documents* and *links*. That's nowadays a huge limitation: the metaphore of the page should be just one of the many possible UI metaphores, only used when appropriate. In fact, a page is something you can read, browse or navigate, but not something you _use_. But web apps should actually be _used_.
 
-Thinking in terms of UI widget that independently switch to multiple states in response to events is a possible way out to this "page metaphore trap". And `jquery-machine` is our weapon.
+Thinking in terms of UI widgets that independently transition between multiple states in response to events is a possible way out to this "page metaphore trap". And `jquery-machine` is our neat weapon.
 
 
 Usage
@@ -140,4 +140,4 @@ $("#myelement").data("activation-state"); // it may return 'active' or 'inactive
 $("#myelement").data("openess-state"); // it may return 'open' or 'closed'
 ```
 
-Classes set by jquery-machine if you set the option `setClass` to `true` will be prefixed as well.
+Classes set by `jquery-machine` when you set the option `setClass` to `true` will be prefixed as well.
