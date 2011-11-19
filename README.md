@@ -76,7 +76,7 @@ Options
 `jquery-machine` accepts an object containing configuration options as the second argument of the `machine()` function. The full list of options is the following:
 
 * `defaultState` (string or function): a string specifying the default or starting state, or a function evaluating to a string.
-* `setClass` (boolean): whether a class corresponding to the current state should be automatically set, allowing for easy styling of different states.
+* `setClass` (boolean): whether a class corresponding to the current state should be automatically set, allowing for easy styling of different states. By default it is set to `false`.
 * `scope` (string): a scope for the state machine, useful to attach multiple independent state machines to the same element avoiding name conflicts.
 
 Further explanation of these configuration options follows.
@@ -101,12 +101,13 @@ Often it is useful to set classes corresponding to the present state of an eleme
 
 ```javascript
 $("#myelement").machine({
-	active: {
-		// ...
-	},
-	inactive: {
-		// ...
-	}, { setClass: true });
+  active: {
+    // ...
+  },
+  inactive: {
+    // ...
+  }
+}, { setClass: true });
 ```
 
 
@@ -117,20 +118,21 @@ You can attach multiple independent state machines to the same element by giving
 
 ```javascript
 $("#myelement").machine({
-	active: {
-		// definition of state 'active'
-	},
-	inactive: {
-		// definition of state 'inactive'
-	}
+  active: {
+    // definition of state 'active'
+  },
+  inactive: {
+    // definition of state 'inactive'
+  }
 }, { scope: "activation" })
 .machine({
-	open: {
-		// definition of state 'open'
-	},
-	closed: {
-		// definition of state 'closed'
-	}, { scope: "openess" });
+  open: {
+    // definition of state 'open'
+  },
+  closed: {
+    // definition of state 'closed'
+  }
+}, { scope: "openess" });
 ```
 
 If you give a scope to a state machine, a prefix will be used to avoid name collision:
