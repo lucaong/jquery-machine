@@ -34,13 +34,15 @@ var myStateMachine = {
     }
   },
   stateTwo: {
-    onEnter: function(evt) {
+    onEnter: function(evt, previousState) {
       // Do something when entering stateTwo. Note that the argument 'evt' is the
-      // event object that triggered the state transition into stateTwo
+      // event object that triggered the state transition into stateTwo.
+      // The second argument is the previous state, the starting point of the transition.
     },
-    onExit: function(evt) {
+    onExit: function(evt, nextState) {
       // Do something when exiting stateTwo. Note that the argument 'evt' is the
-      // event object that triggered the state transition into stateTwo
+      // event object that triggered the state transition out from stateTwo.
+      // The second argument is the next state, the end point of the transition.
     },
     exits: {
       // Here you define the possible exits from stateTwo

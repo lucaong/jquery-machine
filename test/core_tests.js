@@ -21,13 +21,15 @@ $(document).ready(function() {
         }
       },
       two: {
-        onEnter: function(evt) {
+        onEnter: function(evt, previousState) {
           this.data("lastEntered", "two");
           this.data("enteredWithEvt", evt.type);
+          this.data("previousState", previousState);
         },
-        onExit: function(evt) {
+        onExit: function(evt, nextState) {
           this.data("lastExited", "two");
           this.data("exitedWithEvt", evt.type);
+          this.data("nextState", nextState);
         },
         exits: {
           click: "one",
@@ -52,12 +54,14 @@ $(document).ready(function() {
     equal($("#test").data("lastEntered"), "two", "onEnter should be called correctly");
     equal($("#test").data("lastExited"), "one", "onExit should be called correctly");
     equal($("#test").data("enteredWithEvt"), "click", "onEnter should be passed the event object.");
+    equal($("#test").data("previousState"), "one", "onEnter should be passed the previous state as the second argument.");
     
     $("#test").trigger("customevent");
     equal($("#test").data("state"), "three", "When in state 'two' and customevent is triggered, state should transition to 'three' (function returns 'three')");
     equal($("#test").data("lastEntered"), "two", "onEnter should not be called if not defined");
     equal($("#test").data("lastExited"), "two", "onExit should be called correctly");
     equal($("#test").data("exitedWithEvt"), "customevent", "onExit should be passed the event object.");
+    equal($("#test").data("nextState"), "three", "onExit should be passed the next state as the second argument.");
     
     $("#test").trigger("click");
     equal($("#test").data("state"), "three", "When in state 'three' and click is triggered, nothing should happen");

@@ -1,7 +1,7 @@
 /*!
  * jquery-machine Plugin for jQuery
  *
- * Version 0.1.2
+ * Version 0.1.3
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
@@ -71,7 +71,7 @@
             machine[currentState].exits[evt.type].apply($this, arguments) :
             machine[currentState].exits[evt.type];
       if (nextState) {
-        callMethodIfExisting(machine[currentState], "onExit", evt);
+        callMethodIfExisting(machine[currentState], "onExit", evt, nextState);
         if (options.setClass) {
           $(this).removeClass(scopePrefix+currentState);
         }
@@ -79,7 +79,7 @@
         if (options.setClass) {
           $(this).addClass(scopePrefix+nextState);
         }
-        callMethodIfExisting(machine[nextState], "onEnter", evt);
+        callMethodIfExisting(machine[nextState], "onEnter", evt, currentState);
       }
     });
 
