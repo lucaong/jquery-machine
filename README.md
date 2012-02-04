@@ -1,15 +1,17 @@
 jQuery-Machine, finite state machines that rock
 ===============================================
 
-The jQuery plugin `jquery-machine` implements a simple and clean API to bind elements to finite state machines. You can use it to build awesome multy-state UI elements and widgets.
+The jQuery plugin `jquery-machine` implements a simple and clean DSL to attach finite state machines to DOM elements. You can use it to build awesome multy-state UI elements and widgets with ease.
 
 
 Motivation
 ==========
 
-As Web Developers, we tend to structure web apps in pages. The Web started as hypertext content, so we have web *pages*, HTML *documents* and *links*. That's nowadays a huge limitation: the metaphore of the page should be just one of the many possible UI metaphores, only used when appropriate. In fact, a page is something you can read, browse or navigate, but not something you _use_. But web apps should actually be _used_.
+As Web developers striving to build beautiful and usable apps, we are often confronted with the design of fairly complex client-side UI widgets, transitioning between multiple states in response to various events. Often that leads to spaghetti JavaScript code which is difficult to maintain, and sometimes we even find ourselves surrending to second-best but more manageable solutions.
 
-Thinking in terms of UI widgets that independently transition between multiple states in response to events is a possible way out to this "page metaphore trap". And `jquery-machine` is our neat weapon.
+Surrender no more to complexity! Here is `jquery-machine`, our neat weapon.
+
+`jquery-machine` provides you with a beautiful DSL to attach finite state machines to DOM objects, and automatically handles states transitions and events for you.
 
 
 Usage
