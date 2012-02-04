@@ -87,7 +87,7 @@ Further explanation of these configuration options follows.
 Default state
 -------------
 
-There are three way of specifying the state initially set by default:
+There are three ways of specifying the state initially set by default:
 
 1. By naming a state `defaultState`
 2. By specifying `defaultState: true` in the definition of a state. This overrides the first way.
