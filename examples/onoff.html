@@ -3,7 +3,7 @@
   <head>
     <title>jQuery-Machine Demo: on-off buttons</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="../jquery-machine/jquery-machine.0.1.2.js"></script>
+    <script type="text/javascript" src="../jquery-machine/jquery-machine.0.1.4.js"></script>
     <style type="text/css">
       html {
         font-family: Helvetica, Arial, sans-serif;
@@ -43,27 +43,25 @@
     <script type="text/javascript">
       $(document).ready(function() {
         // Define the state machine:
-        $(".onoff").each( function() {
-          $(this).machine({
-            off: {
-              onEnter: function() {
-                this.html("off").val("off");
-              },
-              exits: {
-                click: "on"
-              }
+        $(".onoff").machine({
+          off: {
+            onEnter: function() {
+              this.html("off").val("off");
             },
-            on: {
-              defaultState: true,
-              onEnter: function() {
-                this.html("on").val("on");
-              },
-              exits: {
-                click: "off"
-              }
+            exits: {
+              click: "on"
             }
-          }, {setClass: true});
-        });
+          },
+          on: {
+            defaultState: true,
+            onEnter: function() {
+              this.html("on").val("on");
+            },
+            exits: {
+              click: "off"
+            }
+          }
+        }, {setClass: true});
       });
     </script>
   </head>
