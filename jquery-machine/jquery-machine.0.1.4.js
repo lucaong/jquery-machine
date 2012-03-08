@@ -62,15 +62,15 @@
       if (options.setClass) {
         $this.addClass(scopePrefix+defaultState);
       }
-      callMethodIfExisting($this.data(machineKey)[defaultState], "onEnter");
 
       // Event handler
       $this.bind(events.join(" "), function(evt) {
+        var evtName = evt.type + (evt.namespace.length > 0 ? "." + evt.namespace : "");
         var machine = $this.data(machineKey),
             currentState = $this.data(stateKey),
-            nextState = (typeof machine[currentState].exits[evt.type] === "function") ?
-              machine[currentState].exits[evt.type].apply($this, arguments) :
-              machine[currentState].exits[evt.type];
+            nextState = (typeof machine[currentState].exits[evtName] === "function") ?
+              machine[currentState].exits[evtName].apply($this, arguments) :
+              machine[currentState].exits[evtName];
         if (nextState) {
           callMethodIfExisting(machine[currentState], "onExit", evt, nextState);
           if (options.setClass) {
@@ -83,6 +83,8 @@
           callMethodIfExisting(machine[nextState], "onEnter", evt, currentState);
         }
       });
+
+      callMethodIfExisting($this.data(machineKey)[defaultState], "onEnter");
     });
   };
 
