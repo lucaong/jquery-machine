@@ -196,4 +196,31 @@ $(document).ready(function() {
     
     equal($("#test3").data("myscope-state"), "stateTwo", "Option defaultState should override default state as defined in the machine object");
   });
+
+  test("Namespaced custom events", function() {
+    // Given this state machine, where a transition occurs due to a namespaced event
+    $("#test4").machine({
+      defaultState: {
+        exits: { "custom_event.my_namespace": "stateTwo" }
+      },
+      stateTwo: {}
+    }, { setClass: true });
+
+    $("#test4").trigger("custom_event.my_namespace");
+
+    equal($("#test4").data("state"), "stateTwo", "Namespaced events should be handled correctly.");
+  });
+
+  test("Self-triggered transition from default state", function() {
+    // Given this state machine, where a transition occurs immediately due to the state machine raising an event in it's own onEnter callback
+    $("#test5").machine({
+      defaultState: {
+        onEnter: function() { this.trigger("custom_event.my_namespace"); },
+        exits: { "custom_event.my_namespace": "stateTwo" }
+      },
+      stateTwo: {}
+    }, { setClass: true });
+
+    equal($("#test5").data("state"), "stateTwo", "It should be possible to trigger a transition immediately from the default state onEnter callback.");
+  });
 });
