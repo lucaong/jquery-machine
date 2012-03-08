@@ -147,3 +147,10 @@ $("#myelement").data("openess-state"); // it may return 'open' or 'closed'
 ```
 
 Classes set by `jquery-machine` when you set the option `setClass` to `true` will be prefixed as well.
+
+
+Changelog
+=========
+
+- **v0.1.5** Support for namespaced events and bugfixes (thanks to [leemhenson](https://github.com/leemhenson))
+- **v0.1.4** Attach an independent machine to each DOM element in the jQuery selection instead of a single one
