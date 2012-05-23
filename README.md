@@ -28,7 +28,7 @@ The state machine is described by an object literal with the state names as keys
 ```javascript
 $("#my_element").machine({
   stateOne: { /* object describing stateOne */ },
-  stateTwo: { /* object describing stateThree */ },
+  stateTwo: { /* object describing stateTwo */ },
   stateThree: { /* object describing stateThree */ }
 });
 ```
@@ -185,6 +185,6 @@ Classes set by `jquery-machine` when you set the option `setClass` to `true` wil
 Changelog
 =========
 
-- **vx.y.z** New event map with support for multiple events and selectors. Requires jQuery 1.7+
+- **v1.0.0** New event map with support for multiple events and selectors. Requires jQuery 1.7+
 - **v0.1.5** Support for namespaced events and bugfixes (thanks to [leemhenson](https://github.com/leemhenson))
 - **v0.1.4** Attach an independent machine to each DOM element in the jQuery selection instead of a single one
