@@ -10,7 +10,7 @@ $(document).ready(function() {
         onExit: function() {
           this.data("lastExited", "one");
         },
-        exits: {
+        events: {
           click: "two",
           customevent: "three",
           keypress: "deadlock",
@@ -31,7 +31,7 @@ $(document).ready(function() {
           this.data("exitedWithEvt", evt.type);
           this.data("nextState", nextState);
         },
-        exits: {
+        events: {
           click: "one",
           customevent: function() {
             return "three";
@@ -39,7 +39,7 @@ $(document).ready(function() {
         }
       },
       three: {
-        exits: {
+        events: {
           customevent: "one"
         }
       },
@@ -96,12 +96,12 @@ $(document).ready(function() {
     // Given this state machine:
     $("#test").machine({
       defaultState: {
-        exits: {
+        events: {
           click: "two"
         }
       },
       two: {
-        exits: {
+        events: {
           click: "defaultState"
         }
       }
@@ -111,12 +111,12 @@ $(document).ready(function() {
     $("#test").machine({
       abc: {
         defaultState: true,
-        exits: {
+        events: {
           mouseover: "def"
         }
       },
       def: {
-        exits: {
+        events: {
           click: "abc"
         }
       }
@@ -142,12 +142,12 @@ $(document).ready(function() {
     // Given this state machine, where setClass option is set to true:
     $("#test2").machine({
       defaultState: {
-        exits: {
+        events: {
           click: "two"
         }
       },
       two: {
-        exits: {
+        events: {
           click: "defaultState"
         }
       }
@@ -162,12 +162,12 @@ $(document).ready(function() {
     // And given this state machine, where setClass option is set to true and a scope is used:
     $("#test2").machine({
       defaultState: {
-        exits: {
+        events: {
           mouseover: "two"
         }
       },
       two: {
-        exits: {
+        events: {
           mouseover: "defaultState"
         }
       }
@@ -209,7 +209,7 @@ $(document).ready(function() {
     // Given this state machine, where a transition occurs due to a namespaced event
     $("#test4").machine({
       defaultState: {
-        exits: { "custom_event.my_namespace": "stateTwo" }
+        events: { "custom_event.my_namespace": "stateTwo" }
       },
       stateTwo: {}
     }, { setClass: true });
@@ -224,7 +224,7 @@ $(document).ready(function() {
     $("#test5").machine({
       defaultState: {
         onEnter: function() { this.trigger("custom_event.my_namespace"); },
-        exits: { "custom_event.my_namespace": "stateTwo" }
+        events: { "custom_event.my_namespace": "stateTwo" }
       },
       stateTwo: {}
     }, { setClass: true });
@@ -236,12 +236,12 @@ $(document).ready(function() {
     // Given this state machine, where a transition occurs immediately due to the state machine raising an event in it's own onEnter callback
     $("#test6").machine({
       defaultState: {
-        exits: {
+        events: {
           "click .handle": "stateTwo"
         }
       },
       stateTwo: {
-        exits: {
+        events: {
           "click .handle #nested, keypress .handle #nested": function() {
             return "stateThree";
           }

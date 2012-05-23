@@ -7,7 +7,7 @@ The jQuery plugin `jquery-machine` implements a simple and clean DSL to attach f
 Motivation
 ==========
 
-As Web developers striving to build beautiful and usable apps, we are often confronted with the design of fairly complex client-side UI widgets, transitioning between multiple states in response to various events. Often that leads to spaghetti JavaScript code which is difficult to maintain, and sometimes we even find ourselves surrending to second-best but more manageable solutions.
+As Web developers striving to build beautiful and usable apps, we are often confronted with the design of fairly complex client-side UI widgets, transitioning between different states in response to various events. Often that leads to spaghetti JavaScript code which is difficult to maintain, and sometimes we even find ourselves surrending to second-best but more manageable solutions.
 
 Surrender no more to complexity! Here is `jquery-machine`, our neat weapon.
 
@@ -19,6 +19,7 @@ Usage
 
 ```javascript
 var myStateMachine = {
+  // Define state 'stateOne'
   stateOne: {
     defaultState: true, // stateOne is the default state. Alternatively, just call the default state "defaultState"
     onEnter: function() {
@@ -27,12 +28,15 @@ var myStateMachine = {
     onExit: function() {
       // Do something when exiting stateOne. Here 'this' is $("#myelement")
     },
-    exits: {
-      // Here you define the possible exits from stateOne in the form `event: "state"`
+    events: {
+      // Here you define an event map, specifying the events that trigger a transition from stateOne
+      // to another state in the form `event: "nextState"`
       click: "stateTwo", // When in stateOne and event 'click' is triggered, state transitions to stateTwo
       dblclick: "stateThree" // When in stateOne and event 'dblclick' is triggered, state transitions to stateThree
     }
   },
+
+  // Define state 'stateTwo'
   stateTwo: {
     onEnter: function(evt, previousState) {
       // Do something when entering stateTwo. Note that the argument 'evt' is the
@@ -44,7 +48,7 @@ var myStateMachine = {
       // event object that triggered the state transition out from stateTwo.
       // The second argument is the next state, the end point of the transition.
     },
-    exits: {
+    events: {
       // Here you define the possible exits from stateTwo
       click: "stateThree", // When in stateTwo and event 'click' is triggered, state transitions to stateThree
       customevent: "stateOne", // When in stateTwo and event 'customevent' is triggered, go back to stateOne
@@ -55,6 +59,8 @@ var myStateMachine = {
       }
     }
   },
+
+  // Define state 'stateThree'
   stateThree: {
     // And so on...
   }
@@ -71,7 +77,7 @@ You can read the state of an element in any moment with `$("#myelement").data("s
 Setting the state
 -----------------
 
-Let the events trigger automatically the state transitions you specified: you shouldn't use `$("#myelement").data("state", "myForcedState")` to force the state, because that puts the state machine out of sync (`onExit` and `onEnter` don't get called). When needed, you can always trigger events programmatically via the jQuery function `.trigger()`.
+You should not set the state programmatically. Let the events trigger automatically the state transitions you specified: you shouldn't use `$("#myelement").data("state", "myForcedState")` to force the state, because that puts the state machine out of sync (`onExit` and `onEnter` don't get called). When needed, you can always trigger events programmatically via the jQuery function `.trigger()`.
 
 
 Options
@@ -152,5 +158,6 @@ Classes set by `jquery-machine` when you set the option `setClass` to `true` wil
 Changelog
 =========
 
+- **vx.y.z** New event map with support for multiple events and selectors
 - **v0.1.5** Support for namespaced events and bugfixes (thanks to [leemhenson](https://github.com/leemhenson))
 - **v0.1.4** Attach an independent machine to each DOM element in the jQuery selection instead of a single one

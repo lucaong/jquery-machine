@@ -35,9 +35,10 @@
         if( stateObj.defaultState ) {
           defaultState = state;
         }
-        stateObj.exits = stateObj.exits || {};
+        // For backward compatibility, alias 'events' with 'exits'
+        stateObj.events = stateObj.events || stateObj.exits || {};
         stateEventMap[ state ] = {};
-        $.each( stateObj.exits, function( eventSelectors, exit ) {
+        $.each( stateObj.events, function( eventSelectors, exit ) {
           $.each( eventSelectors.split(/\s*,\s*/), function( i, evtSelector ) {
             var match = evtRegExp.exec( evtSelector );
             if ( match[ 1 ] ) {
