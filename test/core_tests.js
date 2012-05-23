@@ -242,7 +242,9 @@ $(document).ready(function() {
       },
       stateTwo: {
         exits: {
-          "click .handle #nested, keypress .handle #nested": "stateThree"
+          "click .handle #nested, keypress .handle #nested": function() {
+            return "stateThree";
+          }
         }
       },
       stateThree: {}

@@ -16,7 +16,8 @@
 
     return this.each(function() {
       // Variables
-      var evtRegExp = /([^\s]+)\s*(.+)?/,
+      var bindEvents, unbindEvents,
+          evtRegExp = /([^\s]+)\s*(.+)?/,
           $this = $( this ),
           stateEventMap = {},
           defaultState = "defaultState",
@@ -69,13 +70,15 @@
       }
 
       // Event handlers
-      var bindEvents = function( state ) {
+      bindEvents = function( state ) {
         $.each( stateEventMap[ state ], function( key, map ) {
           var namespacedEvt = map.evt.replace( /^\s+|\s+$/g, "" ) + ".jquery-machine";
           $this.on( namespacedEvt, map.selector, function( evt ) {
             var machine = $this.data( machineKey ),
                 currentState = $this.data( stateKey ),
-                exit = stateEventMap[ currentState ][ key ] ? stateEventMap[ currentState ][ key ].exit : false,
+                exit = stateEventMap[ currentState ][ key ] ?
+                  stateEventMap[ currentState ][ key ].exit :
+                  false,
                 nextState = ( $.isFunction( exit ) ) ?
                   exit.apply( $this, arguments ) :
                   exit;
@@ -96,7 +99,7 @@
         });
       };
 
-      var unbindEvents = function( state ) {
+      unbindEvents = function( state ) {
         $.each( stateEventMap[ state ], function( key, map ) {
           var namespacedEvt = map.evt.replace( /^\s+|\s+$/g, "" ) + ".jquery-machine";
           $this.off( namespacedEvt, map.selector );
