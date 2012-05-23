@@ -70,7 +70,7 @@
         $this.addClass( scopePrefix + defaultState );
       }
 
-      // Event handlers
+      // Bind event handlers
       bindEvents = function( state ) {
         $.each( stateEventMap[ state ], function( key, map ) {
           var namespacedEvt = map.evt.replace( /^\s+|\s+$/g, "" ) + ".jquery-machine";
@@ -100,6 +100,7 @@
         });
       };
 
+      // Unbind event handlers
       unbindEvents = function( state ) {
         $.each( stateEventMap[ state ], function( key, map ) {
           var namespacedEvt = map.evt.replace( /^\s+|\s+$/g, "" ) + ".jquery-machine";

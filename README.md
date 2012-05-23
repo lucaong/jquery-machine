@@ -17,45 +17,73 @@ Surrender no more to complexity! Here is `jquery-machine`, our neat weapon.
 Usage
 =====
 
+Attach a finite state machine to a jQuery selection:
+
 ```javascript
-var myStateMachine = {
+$("#my_element").machine( { /* state machine description */ } )
+```
+
+The state machine is described by an object literal with the state names as keys:
+
+```javascript
+$("#my_element").machine({
+  stateOne: { /* object describing stateOne */ },
+  stateTwo: { /* object describing stateThree */ },
+  stateThree: { /* object describing stateThree */ }
+});
+```
+
+Each state is described by these optional properties:
+
+  - `events`: an event map whose keys are the events cause a transition out from this state and the values are the names of the state to transition to
+  - `onEnter`: a callback to be executed when transitioning into this state
+  - `onExit`: a callback to be executed when transitioning out from this state
+  - `defaultState`: a boolean specifying whether this state is the default (the state in which the machine is in at the beginning, before any event is triggered)
+
+A full example:
+
+```javascript
+$("#myelement").machine({
   // Define state 'stateOne'
   stateOne: {
     defaultState: true, // stateOne is the default state. Alternatively, just call the default state "defaultState"
     onEnter: function() {
-      // Do something when entering stateOne. Here 'this' is $("#myelement")
+      // Callback function executed when entering stateOne. Here 'this' is $("#myelement")
     },
     onExit: function() {
-      // Do something when exiting stateOne. Here 'this' is $("#myelement")
+      // Callback function executed when exiting stateOne. Here 'this' is $("#myelement")
     },
     events: {
       // Here you define an event map, specifying the events that trigger a transition from stateOne
-      // to another state in the form `event: "nextState"`
+      // to another state in the form `event: "nextState"`.
       click: "stateTwo", // When in stateOne and event 'click' is triggered, state transitions to stateTwo
-      dblclick: "stateThree" // When in stateOne and event 'dblclick' is triggered, state transitions to stateThree
+      dblclick: "stateThree", // When in stateOne and event 'dblclick' is triggered, state transitions to stateThree
+      "click .handle": "stateThree" // You can also specify selectors (in this case the transition
+                                    // to stateThree is triggered when element of class handle is clicked)
     }
   },
 
   // Define state 'stateTwo'
   stateTwo: {
-    onEnter: function(evt, previousState) {
-      // Do something when entering stateTwo. Note that the argument 'evt' is the
+    onEnter: function( evt, previousState ) {
+      // Executed when entering stateTwo. Note that the argument 'evt' is the
       // event object that triggered the state transition into stateTwo.
       // The second argument is the previous state, the starting point of the transition.
     },
-    onExit: function(evt, nextState) {
-      // Do something when exiting stateTwo. Note that the argument 'evt' is the
+    onExit: function( evt, nextState ) {
+      // Executed when exiting stateTwo. Note that the argument 'evt' is the
       // event object that triggered the state transition out from stateTwo.
       // The second argument is the next state, the end point of the transition.
     },
     events: {
-      // Here you define the possible exits from stateTwo
+      // Events triggering transitions from stateTwo
       click: "stateThree", // When in stateTwo and event 'click' is triggered, state transitions to stateThree
       customevent: "stateOne", // When in stateTwo and event 'customevent' is triggered, go back to stateOne
-      keypress: function(evt) { // You can use a function for more advanced exit conditions
-        // Here 'evt' is the event object. You can thus access event attributes like keyCode, which, etc.
+      keypress: function( evt ) {
+        // You can use a function for more advanced exit conditions
+        // Here 'evt' is the event object. You can thus access event attributes like evt.which, etc.
         // Return a string with the name of the state to transition to,
-        // or false to stay in the same state
+        // or false to stay in the current state
       }
     }
   },
@@ -64,8 +92,7 @@ var myStateMachine = {
   stateThree: {
     // And so on...
   }
-};
-$("#myelement").machine(myStateMachine);
+});
 ```
 
 Getting the state
@@ -80,10 +107,10 @@ Setting the state
 You should not set the state programmatically. Let the events trigger automatically the state transitions you specified: you shouldn't use `$("#myelement").data("state", "myForcedState")` to force the state, because that puts the state machine out of sync (`onExit` and `onEnter` don't get called). When needed, you can always trigger events programmatically via the jQuery function `.trigger()`.
 
 
-Options
-=======
+Configuration options
+=====================
 
-`jquery-machine` accepts an object containing configuration options as the second argument of the `machine()` function. The full list of options is the following:
+The `machine()` function optionally accepts an object containing configuration options as the second argument. The full list of options is the following:
 
 * `defaultState` (string or function): a string specifying the default or starting state, or a function evaluating to a string.
 * `setClass` (boolean): whether a class corresponding to the current state should be automatically set, allowing for easy styling of different states. By default it is set to `false`.
@@ -158,6 +185,6 @@ Classes set by `jquery-machine` when you set the option `setClass` to `true` wil
 Changelog
 =========
 
-- **vx.y.z** New event map with support for multiple events and selectors
+- **vx.y.z** New event map with support for multiple events and selectors. Requires jQuery 1.7+
 - **v0.1.5** Support for namespaced events and bugfixes (thanks to [leemhenson](https://github.com/leemhenson))
 - **v0.1.4** Attach an independent machine to each DOM element in the jQuery selection instead of a single one
