@@ -35,7 +35,7 @@ $("#my_element").machine({
 
 Each state is described by these optional properties:
 
-  - `events`: an event map whose keys are the events cause a transition out from this state and the values are the names of the state to transition to
+  - `events`: an event map whose keys are the events that cause a transition out from this state, and the values are the names of the next state to transition into
   - `onEnter`: a callback to be executed when transitioning into this state
   - `onExit`: a callback to be executed when transitioning out from this state
   - `defaultState`: a boolean specifying whether this state is the default (the state in which the machine is in at the beginning, before any event is triggered)
@@ -48,16 +48,16 @@ $("#myelement").machine({
   stateOne: {
     defaultState: true, // stateOne is the default state. Alternatively, just call the default state "defaultState"
     onEnter: function() {
-      // Callback function executed when entering stateOne. Here 'this' is $("#myelement")
+      // Callback function executed when entering stateOne. Here `this` is $("#myelement")
     },
     onExit: function() {
-      // Callback function executed when exiting stateOne. Here 'this' is $("#myelement")
+      // Callback function executed when exiting stateOne. Here `this` is $("#myelement")
     },
     events: {
       // Here you define an event map, specifying the events that trigger a transition from stateOne
       // to another state in the form `event: "nextState"`.
-      click: "stateTwo", // When in stateOne and event 'click' is triggered, state transitions to stateTwo
-      dblclick: "stateThree", // When in stateOne and event 'dblclick' is triggered, state transitions to stateThree
+      click: "stateTwo", // When in stateOne and event `click` is triggered, state transitions to stateTwo
+      dblclick: "stateThree", // When in stateOne and event `dblclick` is triggered, state transitions to stateThree
       "click .handle": "stateThree" // You can also specify selectors (in this case the transition
                                     // to stateThree is triggered when element of class handle is clicked)
     }
@@ -66,22 +66,22 @@ $("#myelement").machine({
   // Define state 'stateTwo'
   stateTwo: {
     onEnter: function( evt, previousState ) {
-      // Executed when entering stateTwo. Note that the argument 'evt' is the
+      // Executed when entering stateTwo. Note that the argument `evt` is the
       // event object that triggered the state transition into stateTwo.
       // The second argument is the previous state, the starting point of the transition.
     },
     onExit: function( evt, nextState ) {
-      // Executed when exiting stateTwo. Note that the argument 'evt' is the
+      // Executed when exiting stateTwo. Note that the argument `evt` is the
       // event object that triggered the state transition out from stateTwo.
       // The second argument is the next state, the end point of the transition.
     },
     events: {
       // Events triggering transitions from stateTwo
-      click: "stateThree", // When in stateTwo and event 'click' is triggered, state transitions to stateThree
-      customevent: "stateOne", // When in stateTwo and event 'customevent' is triggered, go back to stateOne
+      click: "stateThree",
+      customevent: "stateOne",
       keypress: function( evt ) {
         // You can use a function for more advanced exit conditions
-        // Here 'evt' is the event object. You can thus access event attributes like evt.which, etc.
+        // Here `evt` is the event object. You can thus access event attributes like `evt.which`, etc.
         // Return a string with the name of the state to transition to,
         // or false to stay in the current state
       }
