@@ -3,7 +3,7 @@
   <head>
     <title>jQuery-Machine Demo</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="../jquery-machine/jquery-machine.0.1.5.js"></script>
+    <script type="text/javascript" src="../jquery-machine/jquery-machine.1.0.0.js"></script>
     <style type="text/css">
       html {
         font-family: Helvetica, Arial, sans-serif;
@@ -55,7 +55,7 @@
               $("#statelog").append("<li>I'm exiting state &quot;state2&quot;</li>");
               clearTimeout(timeout);
             },
-            exits: {
+            events: {
               click: "state3",
               timeout: "defaultState"
             }
@@ -68,7 +68,7 @@
             onExit: function() {
               $("#statelog").append("<li>I'm exiting state &quot;state3&quot;</li>");
             },
-            exits: {
+            events: {
               click: "defaultState"
             }
           }

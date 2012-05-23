@@ -3,7 +3,7 @@
   <head>
     <title>jQuery-Machine Demo: on-off buttons</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="../jquery-machine/jquery-machine.0.1.5.js"></script>
+    <script type="text/javascript" src="../jquery-machine/jquery-machine.1.0.0.js"></script>
     <style type="text/css">
       html {
         font-family: Helvetica, Arial, sans-serif;
@@ -48,7 +48,7 @@
             onEnter: function() {
               this.html("off").val("off");
             },
-            exits: {
+            events: {
               click: "on"
             }
           },
@@ -57,7 +57,7 @@
             onEnter: function() {
               this.html("on").val("on");
             },
-            exits: {
+            events: {
               click: "off"
             }
           }
