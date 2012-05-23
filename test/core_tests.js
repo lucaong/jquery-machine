@@ -46,6 +46,10 @@ $(document).ready(function() {
       deadlock: {}
     });
     
+    $("#test").on("click", function(){
+      $("#test").data("clicked", "yes");
+    });
+    
     equal($("#test").data("state"), "one", "State should be initially set to default value of 'one'");
     equal($("#test").data("lastEntered"), "one", "onEnter should be called even at initialization");
     
@@ -82,6 +86,10 @@ $(document).ready(function() {
     
     $("#test").trigger("click");
     equal($("#test").data("state"), "deadlock", "When in state 'deadlock' and keypress is triggered, state should stay the same");
+
+    $("#test").data("clicked", "");
+    $("#test").trigger("click");
+    equal($("#test").data("clicked"), "yes", "It should not unbind event handlers not set by jquery-machine");
   });
   
   test("scoped state machines", function() {
