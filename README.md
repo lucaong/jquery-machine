@@ -35,7 +35,7 @@ $("#my_element").machine({
 
 Each state is described by these optional properties:
 
-  - `events`: an event map whose keys are the events that cause a transition out from this state, and the values are the names of the next state to transition into
+  - `events`: an event map whose keys are the events that cause a transition out from this state, and the values are strings (or functions evaluating to strings) with the name of the next state to transition into
   - `onEnter`: a callback to be executed when transitioning into this state
   - `onExit`: a callback to be executed when transitioning out from this state
   - `defaultState`: a boolean specifying whether this state is the default (the state in which the machine is in at the beginning, before any event is triggered)
