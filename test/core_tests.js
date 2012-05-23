@@ -223,4 +223,30 @@ $(document).ready(function() {
 
     equal($("#test5").data("state"), "stateTwo", "It should be possible to trigger a transition immediately from the default state onEnter callback.");
   });
+
+  test("Selectors in event map", function() {
+    // Given this state machine, where a transition occurs immediately due to the state machine raising an event in it's own onEnter callback
+    $("#test6").machine({
+      defaultState: {
+        exits: {
+          "click .handle": "stateTwo"
+        }
+      },
+      stateTwo: {
+        exits: {
+          "click .handle #nested, keypress .handle #nested": "stateThree"
+        }
+      },
+      stateThree: {}
+    });
+
+    $("#test6").trigger("click");
+    equal($("#test6").data("state"), "defaultState", "If a selector is specified in the event map, the state transition should not be triggered by events on elements outside the selected ones");
+
+    $("#test6 .handle").trigger("click");
+    equal($("#test6").data("state"), "stateTwo", "If a selector is specified in the event map, the state transition should be triggered by events on the selected element");
+
+    $("#test6 .handle #nested").trigger("keypress");
+    equal($("#test6").data("state"), "stateThree", "It should be possible to specify multiple comma-separated events/selectors");
+  });
 });
