@@ -38,7 +38,10 @@ Each state is described by these optional properties:
   - `events`: an event map whose keys are the events that cause a transition out from this state, and the values are strings (or functions evaluating to strings) with the name of the next state to transition into
   - `onEnter`: a callback to be executed when transitioning into this state
   - `onExit`: a callback to be executed when transitioning out from this state
-  - `defaultState`: a boolean specifying whether this state is the default (the state in which the machine is in at the beginning, before any event is triggered)
+
+You must also define a Default State.
+
+  - `defaultState`: a boolean specifying whether this state is the default (the state in which the machine is in at the beginning, before any event is triggered) At least one state must be the default state.
 
 A full example:
 
@@ -112,7 +115,7 @@ Configuration options
 
 The `machine()` function optionally accepts an object containing configuration options as the second argument. The full list of options is the following:
 
-* `defaultState` (string or function): a string specifying the default or starting state, or a function evaluating to a string.
+* `defaultState` (string or function): a string specifying the default or starting state, or a function evaluating to a string. (At least one state must be set as the `defaultState`)
 * `setClass` (boolean): whether a class corresponding to the current state should be automatically set, allowing for easy styling of different states. By default it is set to `false`.
 * `scope` (string): a scope for the state machine, useful to attach multiple independent state machines to the same element avoiding name conflicts.
 
@@ -130,6 +133,7 @@ There are three ways of specifying the state initially set by default:
 
 The last method let you attach the same state machine to different elements, with different starting states.
 
+However you choose to define it, you must make sure that one of the states is the `defaultState`.
 
 Classes corresponding to the current state
 ------------------------------------------
@@ -181,10 +185,28 @@ $("#myelement").data("openess-state"); // it may return 'open' or 'closed'
 
 Classes set by `jquery-machine` when you set the option `setClass` to `true` will be prefixed as well.
 
+Testing
+-------
+
+Tests are written using [quint](http://qunitjs.com).
+
+```bash
+npm install
+grunt test
+```
+
+Building (which also runs the tests)
+------------------------------------
+
+```bash
+npm install
+grunt
+```
 
 Changelog
 =========
 
+- **v1.0.1** Enforce the requirement for at least one `defaultState`, modified the build process to use [grunt](). Other small tidy ups. (thanks to [davesag](https://github.com/davesag))
 - **v1.0.0** New event map with support for multiple events and selectors. Requires jQuery 1.7+
 - **v0.1.5** Support for namespaced events and bugfixes (thanks to [leemhenson](https://github.com/leemhenson))
 - **v0.1.4** Attach an independent machine to each DOM element in the jQuery selection instead of a single one

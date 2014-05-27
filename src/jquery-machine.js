@@ -1,14 +1,8 @@
-/*!
- * jquery-machine Plugin for jQuery
- *
- * Version 0.1.5
- *
- * Copyright 2011, Luca Ongaro
- * Licensed under the MIT license.
- *
- */ 
- 
-(function( $ ){
+if (typeof jQuery !== "function") {
+  throw "Expected jQuery to have been loaded before this script.";
+}
+
+(function( $, undefined ){
   "use strict";
   $.fn.machine = function( machine, options ) {
     // Merge options with default
@@ -72,6 +66,13 @@
 
       // Bind event handlers
       bindEvents = function( state ) {
+        if ( stateEventMap[ state ] === null || undefined === stateEventMap[ state ]) {
+          if (state === "defaultState") {
+            throw "None of the supplied states is the defaultState. Please check your code.";
+          } else {
+            throw "The state '" + state + "' has not been correctly defined. Please check your code.";
+          }
+        }
         $.each( stateEventMap[ state ], function( key, map ) {
           var namespacedEvt = map.evt.replace( /^\s+|\s+$/g, "" ) + ".jquery-machine";
           $this.on( namespacedEvt, map.selector, function( evt ) {
