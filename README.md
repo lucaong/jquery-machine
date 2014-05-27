@@ -206,7 +206,7 @@ grunt
 Changelog
 =========
 
-- **v1.0.1** Enforce the requirement for at least one `defaultState`, modified the build process to use [grunt](). Other small tidy ups. (thanks to [davesag](https://github.com/davesag))
+- **v1.0.1** Enforce the requirement for at least one `defaultState`, modified the build process to use [grunt](http://gruntjs.com). Other small tidy ups. (thanks to [davesag](https://github.com/davesag))
 - **v1.0.0** New event map with support for multiple events and selectors. Requires jQuery 1.7+
 - **v0.1.5** Support for namespaced events and bugfixes (thanks to [leemhenson](https://github.com/leemhenson))
 - **v0.1.4** Attach an independent machine to each DOM element in the jQuery selection instead of a single one
