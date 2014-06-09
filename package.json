@@ -1,0 +1,43 @@
+{
+  "name": "machine",
+  "title": "jQuery Machine",
+  "description": "A simple jQuery Plugin to show repeatable Bootstrap 3 Alerts",
+  "version": "1.0.1",
+  "main": "jquery-machine.js",
+  "homepage": "https://github.com/lucaong/jquery-machine",
+  "author": {
+    "name": "Luca Ongaro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lucaong/jquery-machine.git"
+  },
+  "bugs": "https://github.com/lucaong/jquery-machine/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/lucaong/jquery-machine/blob/master/LICENSE.txt"
+    }
+  ],
+  "dependencies": {
+    "jquery": "^1.7.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-qunit": "^0.4.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "keywords": [
+    "jquery", "bootstrap", "alert"
+  ]
+}

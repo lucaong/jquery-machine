@@ -1,4 +1,4 @@
-$(document).ready(function() {
+(function($) {
   test('Basic plugin functionality', function() {
     // Given this state machine:
     $("#test").machine({
@@ -259,4 +259,22 @@ $(document).ready(function() {
     $("#test6 .handle #nested").trigger("keypress");
     equal($("#test6").data("state"), "stateThree", "It should be possible to specify multiple comma-separated events/selectors");
   });
-});
+
+  test("Missing defaultState throws an error", function() {
+    throws(function(){
+      $("#test7").machine({
+        stateOne: {
+          events: {
+            update: "stateTwo"
+          }
+        },
+        stateTwo: {
+          events: {
+            update: "stateOne"
+          }
+        }
+      });
+    }, "must throw an error");
+  });
+
+}(jQuery));
